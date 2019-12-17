@@ -42,6 +42,12 @@ public class Impl {
   public ResultWithInstance add(@PathVariable("x") int x, @PathVariable("y") int y) {
     return ResultWithInstance.create(x + y);
   }
+  
+  @RequestMapping(path = "/myadd/{name}/test", method = RequestMethod.GET)
+  public ResultWithInstance myadd(@PathVariable String name) {
+	  System.out.println(name);
+	  return ResultWithInstance.create(1);
+  }
 
   @RequestMapping(path = "/dec", method = RequestMethod.GET)
   public ResultWithInstance dec(int x, int y) {

@@ -1,11 +1,13 @@
 # CSE支持冒号格式的Rest规范
 
-参考链接：
+##### 参考链接：
 
 https://docs.servicecomb.io/java-chassis/zh_CN/edge/by-servicecomb-sdk.html
 
 这是我测试的例子，是支持url带冒号的：
 demo地址：<https://github.com/apache/servicecomb-java-chassis/tree/master/demo/demo-edge>
+
+##### 例子一：
 
 1、修改url为带冒号格式
 
@@ -42,5 +44,33 @@ servicecomb:
     "instanceId:"xxx...",
     "version":"1.1.2"
 }
+```
+
+##### 例子二：
+
+如果path是这种格式/myadd/{name}/test，并且name参数带冒号，则需要将冒号转成%3A
+
+我这边测试，%3A是支持的，后台能正常获取到name参数，浏览器+postman都支持 
+
+1、接口代码：
+
+```
+@RequestMapping(path = "/myadd/{name}/test", method = RequestMethod.GET) 
+public ResultWithInstance myadd(@PathVariable String name) { 
+	System.out.println(name); 
+	return ResultWithInstance.create(1); 
+}
+```
+
+2、请求接口：
+
+ <http://127.0.0.1:8080/business/v1/myadd/uuuu%3A3433/test> 
+
+3、控制台打印：
+
+```
+2019-12-17 09:04:56,522 [WARN] sc task postponed for 31196ms for some reason... 
+
+uuuu:3433 
 ```
 
